@@ -1,32 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todo/core/models/task.dart';
+import 'package:todo/utils/constants.dart';
 import 'package:todo/utils/styles.dart';
-import 'package:todo/views/screens/home.dart';
+import 'package:todo/views/screens/modify_task.screen.dart';
 import 'package:todo/views/widgets/task_tile.dart';
 
-class TodoList extends HookWidget {
+class TodoList extends StatelessWidget {
   const TodoList({
     @required this.scrollController,
+    @required this.tasks,
+    @required this.tasksCount,
+    @required this.onCheckTask,
+    @required this.onDeleteTask,
     Key key,
   }) : super(key: key);
   final ScrollController scrollController;
+  final List<Task> tasks;
+  final int tasksCount;
+  final Function(Task) onCheckTask;
+  final void Function(Task) onDeleteTask;
 
   @override
   Widget build(BuildContext context) {
-    final _tasksProvider = useProvider(tasksChangeNotifier);
     return ListView.separated(
       controller: this.scrollController,
-      itemCount: _tasksProvider.tasksCount,
+      itemCount: this.tasksCount,
       itemBuilder: (_, index) {
-        var task = _tasksProvider.tasks[index];
+        var task = this.tasks[index];
         return TaskTile(
+          onSelectedAction: (action) {
+            if (action == taskTileActions[0])
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ModifyTaskScreen(task: task),
+                ),
+              );
+            else
+              this.onDeleteTask(task);
+          },
           task: task,
           isChecked: task.isDone ?? false,
           position: (index + 1),
           onCheck: (value) {
             task.isDone = value;
-            _tasksProvider.updateTask(task);
+            this.onCheckTask(task);
           },
         );
       },
