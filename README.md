@@ -16,7 +16,7 @@
 
 ---
 
-<p align="center"> A basic TODO app.
+<p align="center"> Not really basic TODO app.
     <br> 
 </p>
 
@@ -34,7 +34,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-This is my participation to the Awesomity Lab Mobille Task Force Challenge that was about building a basic TODO app.
+This is my participation to the Awesomity Lab Mobille Task Force Challenge that was about building a not realy basic TODO app.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
