@@ -6,15 +6,18 @@ class SearchBar extends StatelessWidget {
     Key key,
     @required TextEditingController searchBarController,
     @required this.hideSearchBar,
+    @required this.onChanged,
   })  : _searchBarController = searchBarController,
         super(key: key);
 
   final TextEditingController _searchBarController;
   final VoidCallback hideSearchBar;
+  final void Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: this.onChanged,
       autofocus: true,
       style: TextStyle(color: TodoColors.accent),
       cursorColor: TodoColors.accent,
@@ -26,15 +29,18 @@ class SearchBar extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50),
+          borderSide: BorderSide.none,
         ),
         contentPadding: EdgeInsets.only(left: 12),
-        fillColor: Colors.grey.withOpacity(.3),
+        fillColor: Colors.white.withOpacity(0.125),
         filled: true,
         border: OutlineInputBorder(borderSide: BorderSide.none),
-        hintText: "Search",
-        hintStyle: TextStyle(
-          color: Colors.white,
-        ),
+        hintText: "Search task",
+        hintStyle: TextStyle(color: Colors.grey),
       ),
     );
   }
