@@ -10,8 +10,6 @@ import 'package:todo/utils/constants.dart';
 import 'package:todo/utils/styles.dart';
 import 'package:todo/views/widgets/task_form_input.dart';
 
-import 'home.dart';
-
 class NewTaskScreen extends HookWidget {
   final _picker = ImagePicker();
   @override
