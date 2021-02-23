@@ -7,7 +7,7 @@
 
 <div align="center">
 
-![Status](https://github.com/silverhairs/awesome-taskforce-todo/workflows/Dart/badge.svg?branch=main)
+![Status](https://github.com/silverhairs/awesome-taskforce-todo/workflows/Flutter/badge.svg?branch=main)
 [![GitHub Issues](https://img.shields.io/github/issues/silverhairs/awesome-taskforce-todo.svg)](https://github.com/silverhairs/awesome-taskforce-todo/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/silverhairs/awesome-taskforce-todo.svg)](https://github.com/silverhairs/awesome-taskforce-todo/pulls)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
