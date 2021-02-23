@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:todo/core/models/task.dart';
 import 'package:todo/utils/constants.dart';
 import 'package:todo/utils/styles.dart';
+import 'package:todo/views/widgets/reusables/delete_task_warning.dart';
 import 'package:todo/views/widgets/reusables/priority_badge.dart';
+import 'package:todo/views/widgets/reusables/square_icon_btn.dart';
 import 'package:todo/views/widgets/task_form_input.dart';
 
 class TaskDetailsScreen extends HookWidget {
@@ -13,6 +16,7 @@ class TaskDetailsScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _scrollController = useScrollController();
+    final _tasksProvider = useProvider(tasksChangeNotifier);
     return Scaffold(
       appBar: AppBar(elevation: 4, backgroundColor: TodoColors.accent),
       body: SingleChildScrollView(
@@ -46,21 +50,27 @@ class TaskDetailsScreen extends HookWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                              color: TodoColors.lightGrey,
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Icon(Icons.create),
+                        SquareIconButton(
+                          icon: Icons.create,
+                          task: this.task,
                         ),
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                              color: TodoColors.lightGrey,
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Icon(Icons.close),
+                        SquareIconButton(
+                          onPressed: () => showDialog(
+                            context: context,
+                            builder: (context) => DeleteTaskWarningDialog(
+                              onDeleteTask: () {
+                                //Quit the Dialog
+                                Navigator.pop(context);
+                                // Delete the task from the local DB
+                                _tasksProvider.deleteTask(this.task);
+                                // Quit the current screen
+                                Navigator.pop(context);
+                                //😂😂 Yeah I know there's probably a better way to do this but...
+                              },
+                            ),
+                          ),
+                          icon: Icons.close,
+                          task: this.task,
                         ),
                         FlatButton(
                           splashColor: TodoColors.darkGrey,
