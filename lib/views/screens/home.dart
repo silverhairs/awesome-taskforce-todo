@@ -21,7 +21,7 @@ class HomeScreen extends HookWidget {
     final _tasksProvider = useProvider<TodoListNotifier>(tasksChangeNotifier);
     final _isSearchBarVisible = useState<bool>(false);
     final _tasksFoundState = useState<List<Task>>(_tasksProvider.tasks);
-    final _filteredTasksList = useState<List<Task>>(_tasksProvider.tasks);
+    final _filteredTasksListState = useState('shuffle');
 
     void _searchTask(value) {
       _tasksFoundState.value = _tasksProvider.tasks
@@ -32,26 +32,30 @@ class HomeScreen extends HookWidget {
     }
 
     void _filterTasks(String option) {
-      switch (option) {
-        case "Low priority":
-          _filteredTasksList.value = _tasksProvider.tasks
-              .where((task) => task.priority == Priority.LOW)
-              .toList();
-          break;
-        case "Medium priority":
-          _filteredTasksList.value = _tasksProvider.tasks
-              .where((task) => task.priority == Priority.MEDIUM)
-              .toList();
-          break;
-        case "High priority":
-          _filteredTasksList.value = _tasksProvider.tasks
-              .where((task) => task.priority == Priority.HIGH)
-              .toList();
-          break;
-        default:
-          _filteredTasksList.value = _tasksProvider.tasks;
-          break;
-      }
+      if (option == "Low priority")
+        _filteredTasksListState.value = 'low';
+      else if (option == 'Medium priority')
+        _filteredTasksListState.value = 'medium';
+      else if (option == 'High priority')
+        _filteredTasksListState.value = 'high';
+      _filteredTasksListState.value = 'shuffle';
+    }
+
+    List<Task> _getFilteredList() {
+      if (_filteredTasksListState.value == 'low')
+        return _tasksProvider.tasks
+            .where((task) => task.priority == Priority.LOW)
+            .toList();
+      else if (_filteredTasksListState.value == 'medium')
+        return _tasksProvider.tasks
+            .where((task) => task.priority == Priority.MEDIUM)
+            .toList();
+      else if (_filteredTasksListState.value == 'high')
+        return _tasksProvider.tasks
+            .where((task) => task.priority == Priority.HIGH)
+            .toList();
+
+      return _tasksProvider.tasks;
     }
 
     return SafeArea(
@@ -84,7 +88,7 @@ class HomeScreen extends HookWidget {
                   ),
             PopupMenuButton<String>(
               icon: Icon(Icons.filter_list, color: TodoColors.accent, size: 24),
-              onSelected: _filterTasks,
+              onSelected: (option) => _filterTasks(option),
               itemBuilder: (context) => filterOptions
                   .map(
                     (option) => PopupMenuItem<String>(
@@ -137,12 +141,8 @@ class HomeScreen extends HookWidget {
                         Expanded(
                           child: _tasksProvider.tasksCount > 0
                               ? TodoList(
-                                  tasks: _isSearchBarVisible.value
-                                      ? _tasksFoundState.value
-                                      : _filteredTasksList.value,
-                                  tasksCount: _isSearchBarVisible.value
-                                      ? _tasksFoundState.value.length
-                                      : _filteredTasksList.value.length,
+                                  tasks: _getFilteredList(),
+                                  tasksCount: _getFilteredList().length,
                                   onCheckTask: _tasksProvider.updateTask,
                                   scrollController: controller,
                                   onDeleteTask: (task) => showDialog(
