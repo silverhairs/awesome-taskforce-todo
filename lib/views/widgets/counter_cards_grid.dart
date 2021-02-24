@@ -101,7 +101,7 @@ class CounterCardsGrid extends StatelessWidget {
           ),
         ],
       ),
-      height: 80,
+      height: 100,
     );
   }
 }
