@@ -27,6 +27,7 @@
 - [Usage](#usage)
 - [Built Using](#built_using)
 - [Authors](#authors)
+- [Weird Behaviours](#behaviours)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -65,10 +66,6 @@ $ flutter run
 
 Creating, Reading, Editing and Deleting Tasks in a todo list.
 
-## 🚀 Deployment <a name = "deployment"></a>
-
-Add additional notes about how to deploy this on a live system.
-
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [Hive](https://docs.hivedb.dev/) - Local Database
@@ -80,7 +77,7 @@ Add additional notes about how to deploy this on a live system.
 - [Boris Kayi](https://github.com/silverhairs) - Development
 - [Awesomity Lab](https://github.com/Awesomity-Lab) - Idea & UI
 
-## 🥲 Weird behaviours & undone work:
+## 🥲 Weird behaviours & undone work <a name = "behaviours"></a>
 
 I joined the challenge pretty late so there are a bunch of stuff that I didn't really have time to do.
 
