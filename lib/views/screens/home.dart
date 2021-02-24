@@ -6,7 +6,7 @@ import 'package:todo/core/notifiers/todolist_notifier.dart';
 import 'package:todo/utils/constants.dart';
 import 'package:todo/utils/styles.dart';
 import 'package:todo/views/screens/new_task_screen.dart';
-import 'package:todo/views/widgets/categories_cards_grid.dart';
+import 'package:todo/views/widgets/counter_cards_grid.dart';
 import 'package:todo/views/widgets/empty_todo_list_msg.dart';
 import 'package:todo/views/widgets/reusables/delete_task_warning.dart';
 import 'package:todo/views/widgets/search_bar.dart';
@@ -21,6 +21,7 @@ class HomeScreen extends HookWidget {
     final _tasksProvider = useProvider<TodoListNotifier>(tasksChangeNotifier);
     final _isSearchBarVisible = useState<bool>(false);
     final _tasksFoundState = useState<List<Task>>(_tasksProvider.tasks);
+    final _filteredTasksList = useState<List<Task>>(_tasksProvider.tasks);
 
     void _searchTask(value) {
       _tasksFoundState.value = _tasksProvider.tasks
@@ -28,6 +29,29 @@ class HomeScreen extends HookWidget {
             (task) => (task.title.toLowerCase()).contains(value.toLowerCase()),
           )
           .toList();
+    }
+
+    void _filterTasks(String option) {
+      switch (option) {
+        case "Low priority":
+          _filteredTasksList.value = _tasksProvider.tasks
+              .where((task) => task.priority == Priority.LOW)
+              .toList();
+          break;
+        case "Medium priority":
+          _filteredTasksList.value = _tasksProvider.tasks
+              .where((task) => task.priority == Priority.MEDIUM)
+              .toList();
+          break;
+        case "High priority":
+          _filteredTasksList.value = _tasksProvider.tasks
+              .where((task) => task.priority == Priority.HIGH)
+              .toList();
+          break;
+        default:
+          _filteredTasksList.value = _tasksProvider.tasks;
+          break;
+      }
     }
 
     return SafeArea(
@@ -58,9 +82,17 @@ class HomeScreen extends HookWidget {
                         Icon(Icons.search, color: TodoColors.accent, size: 24),
                     onPressed: () => _isSearchBarVisible.value = true,
                   ),
-            IconButton(
+            PopupMenuButton<String>(
               icon: Icon(Icons.filter_list, color: TodoColors.accent, size: 24),
-              onPressed: () => print("//TODO: Filter dropdown"),
+              onSelected: _filterTasks,
+              itemBuilder: (context) => filterOptions
+                  .map(
+                    (option) => PopupMenuItem<String>(
+                      value: option,
+                      child: Text(option),
+                    ),
+                  )
+                  .toList(),
             )
           ],
         ),
@@ -101,16 +133,16 @@ class HomeScreen extends HookWidget {
                                     color: TodoColors.deepDark),
                           ),
                         ),
-                        CategoriesCardsGrid(tasksProvider: _tasksProvider),
+                        CounterCardsGrid(tasksProvider: _tasksProvider),
                         Expanded(
                           child: _tasksProvider.tasksCount > 0
                               ? TodoList(
                                   tasks: _isSearchBarVisible.value
                                       ? _tasksFoundState.value
-                                      : _tasksProvider.tasks,
+                                      : _filteredTasksList.value,
                                   tasksCount: _isSearchBarVisible.value
                                       ? _tasksFoundState.value.length
-                                      : _tasksProvider.tasksCount,
+                                      : _filteredTasksList.value.length,
                                   onCheckTask: _tasksProvider.updateTask,
                                   scrollController: controller,
                                   onDeleteTask: (task) => showDialog(
