@@ -27,6 +27,7 @@
 - [Usage](#usage)
 - [Built Using](#built_using)
 - [Authors](#authors)
+- [Weird Behaviours](#behaviours)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -65,13 +66,10 @@ $ flutter run
 
 Creating, Reading, Editing and Deleting Tasks in a todo list.
 
-## 🚀 Deployment <a name = "deployment"></a>
-
-Add additional notes about how to deploy this on a live system.
-
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [Hive](https://docs.hivedb.dev/) - Local Database
+- [Flutter Hooks](https://pub.dev/packages/flutter_hooks) - Local State Management and Widget life-cycle 
 - [Flutter](https://flutter.dev/) - UI Framework
 - [Dart](https://dart.dev/) - Programming Language
 
@@ -80,12 +78,12 @@ Add additional notes about how to deploy this on a live system.
 - [Boris Kayi](https://github.com/silverhairs) - Development
 - [Awesomity Lab](https://github.com/Awesomity-Lab) - Idea & UI
 
-## 🥲 Weird behaviours & undone work:
+## 🥲 Weird behaviours & undone work <a name = "behaviours"></a>
 
 I joined the challenge pretty late so there are a bunch of stuff that I didn't really have time to do.
 
-- Tests: There is zero tests written (I am pretty new in writing flutter tests so I usually postpone it until It's not done)
+- Splash screen on iOS: I don't own a Mac so I could not implement this because I don't have access to XCode.
+- Tests: There is zero tests written 
 - Redux: I am not familiar with Redux and didn't have enough time to learn it so I used [riverpod](https://pub.dev/packages/riverpod) instead.
 - Firebase: Well I started but didn't finish once again because of the time.
 - Commenting.
-- Splash screen on iOS: I don't own a Mac so I could not implement this because I don't have access to XCode.
