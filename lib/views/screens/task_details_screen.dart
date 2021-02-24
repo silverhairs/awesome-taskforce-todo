@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:todo/core/models/task.dart';
 import 'package:todo/utils/constants.dart';
 import 'package:todo/utils/styles.dart';
+import 'package:todo/views/screens/modify_task.screen.dart';
 import 'package:todo/views/widgets/reusables/delete_task_warning.dart';
 import 'package:todo/views/widgets/reusables/priority_badge.dart';
 import 'package:todo/views/widgets/reusables/square_icon_btn.dart';
@@ -53,6 +54,13 @@ class TaskDetailsScreen extends HookWidget {
                         SquareIconButton(
                           icon: Icons.create,
                           task: this.task,
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ModifyTaskScreen(task: this.task),
+                            ),
+                          ),
                         ),
                         SquareIconButton(
                           onPressed: () => showDialog(
