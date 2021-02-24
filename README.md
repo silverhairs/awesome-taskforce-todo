@@ -81,8 +81,8 @@ Creating, Reading, Editing and Deleting Tasks in a todo list.
 
 I joined the challenge pretty late so there are a bunch of stuff that I didn't really have time to do.
 
-- Tests: There is zero tests written (I am pretty new in writing flutter tests so I usually postpone it until It's not done)
+- Splash screen on iOS: I don't own a Mac so I could not implement this because I don't have access to XCode.
+- Tests: There is zero tests written 
 - Redux: I am not familiar with Redux and didn't have enough time to learn it so I used [riverpod](https://pub.dev/packages/riverpod) instead.
 - Firebase: Well I started but didn't finish once again because of the time.
 - Commenting.
-- Splash screen on iOS: I don't own a Mac so I could not implement this because I don't have access to XCode.
