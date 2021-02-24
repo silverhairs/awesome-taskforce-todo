@@ -23,24 +23,6 @@ class HomeScreen extends HookWidget {
     final _tasksFoundState = useState<List<Task>>(_tasksProvider.tasks);
     final _filteredTasksListState = useState('shuffle');
 
-    void _searchTask(value) {
-      _tasksFoundState.value = _tasksProvider.tasks
-          .where(
-            (task) => (task.title.toLowerCase()).contains(value.toLowerCase()),
-          )
-          .toList();
-    }
-
-    void _filterTasks(String option) {
-      if (option == "Low priority")
-        _filteredTasksListState.value = 'low';
-      else if (option == 'Medium priority')
-        _filteredTasksListState.value = 'medium';
-      else if (option == 'High priority')
-        _filteredTasksListState.value = 'high';
-      _filteredTasksListState.value = 'shuffle';
-    }
-
     List<Task> _getFilteredList() {
       if (_filteredTasksListState.value == 'low')
         return _tasksProvider.tasks
@@ -56,6 +38,30 @@ class HomeScreen extends HookWidget {
             .toList();
 
       return _tasksProvider.tasks;
+    }
+
+    void _filterTasks(String option) {
+      if (option == "Low priority") {
+        _filteredTasksListState.value = 'low';
+        _getFilteredList();
+      } else if (option == 'Medium priority') {
+        _filteredTasksListState.value = 'medium';
+        _getFilteredList();
+      } else if (option == 'High priority') {
+        _filteredTasksListState.value = 'high';
+        _getFilteredList();
+      } else {
+        _filteredTasksListState.value = 'shuffle';
+        _getFilteredList();
+      }
+    }
+
+    void _searchTask(value) {
+      _tasksFoundState.value = _getFilteredList()
+          .where(
+            (task) => (task.title.toLowerCase()).contains(value.toLowerCase()),
+          )
+          .toList();
     }
 
     return SafeArea(
@@ -88,7 +94,7 @@ class HomeScreen extends HookWidget {
                   ),
             PopupMenuButton<String>(
               icon: Icon(Icons.filter_list, color: TodoColors.accent, size: 24),
-              onSelected: (option) => _filterTasks(option),
+              onSelected: _filterTasks,
               itemBuilder: (context) => filterOptions
                   .map(
                     (option) => PopupMenuItem<String>(
@@ -141,8 +147,12 @@ class HomeScreen extends HookWidget {
                         Expanded(
                           child: _tasksProvider.tasksCount > 0
                               ? TodoList(
-                                  tasks: _getFilteredList(),
-                                  tasksCount: _getFilteredList().length,
+                                  tasks: _isSearchBarVisible.value
+                                      ? _tasksFoundState.value
+                                      : _getFilteredList(),
+                                  tasksCount: _isSearchBarVisible.value
+                                      ? _tasksFoundState.value.length
+                                      : _getFilteredList().length,
                                   onCheckTask: _tasksProvider.updateTask,
                                   scrollController: controller,
                                   onDeleteTask: (task) => showDialog(

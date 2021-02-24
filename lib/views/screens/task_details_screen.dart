@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,21 +27,27 @@ class TaskDetailsScreen extends HookWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 16),
-              width: double.infinity,
-              height: screenWidth(context) / 1.5,
-              constraints: BoxConstraints(maxHeight: 500),
-              color: TodoColors.lightGrey,
-              child: this.task.imageURL == null || this.task.imageURL.isEmpty
-                  ? Center(
-                      child: Icon(
-                      Icons.image,
-                      size: 60,
-                      color: Colors.grey,
-                    ))
-                  : Image.asset(this.task.imageURL, fit: BoxFit.cover),
-            ),
+            this.task.imageURL == null || this.task.imageURL.isEmpty
+                ? Container(
+                    margin: EdgeInsets.symmetric(vertical: 16),
+                    width: double.infinity,
+                    height: screenWidth(context) / 1.5,
+                    constraints: BoxConstraints(maxHeight: 500),
+                    color: TodoColors.lightGrey,
+                    child: Center(
+                      child: Icon(Icons.image, size: 60, color: Colors.grey),
+                    ),
+                  )
+                : Container(
+                    width: double.infinity,
+                    height: screenWidth(context) / 1.5,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: FileImage(File(this.task.imageURL)),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
             Padding(
               padding: EdgeInsets.all(12),
               child: Row(
