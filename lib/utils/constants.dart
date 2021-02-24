@@ -6,7 +6,12 @@ double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 
 const List<String> taskTileActions = ["Modify", "Delete"];
-
+const List<String> filterOptions = [
+  "Low priority",
+  "Medium priority",
+  "High priority",
+  "Not filtered"
+];
 final tasksChangeNotifier = ChangeNotifierProvider<TodoListNotifier>((ref) {
   return TodoListNotifier();
 });
