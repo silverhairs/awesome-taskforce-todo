@@ -24,17 +24,13 @@
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
-This is my participation to the Awesomity Lab Mobille Task Force Challenge that was about building a not realy basic TODO app.
+This is my contribution to the Awesomity Lab Mobille Task Force Challenge that was about building a not realy basic TODO app.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -47,16 +43,17 @@ These instructions will get you a copy of the project up and running on your loc
 - An IDE/Text Editor (Android Studio, VS Code or IntelliJ IDEA)
 - An Android device (physical or emulator)
 
-**PS: To run the app on an iOS simulator, you need XCode**
-
-After all the prerequisites are met, follow the steps below: <br/>
-Make sure the emulator is already running and if you are using a physical device, make sure it is plugged and and USB debugging is activated. Run the command bellow to see if flutter has detected your device:
+Make sure your emulator/simulator is up and running and if you are are using a physical device instead, make sure it is plugged and USB debugging is activated. Run the command bellow to see if flutter has detected your device:
 
 ```
 $ flutter devices
 ```
 
-Then run the commands below in the written order to clone, install and run the app.
+### Installing
+
+**PS: To run the app on an iOS simulator, you need XCode**
+
+After all the prerequisites are met, follow the steps below in the written order to clone, install and run the app in your device.
 
 ```
 $ git clone silverhairs/awesome-taskforce-todo.git
@@ -64,47 +61,9 @@ $ cd awesome-taskforce-todo/
 $ flutter run
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+Creating, Reading, Editing and Deleting Tasks in a todo list.
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
@@ -112,14 +71,21 @@ Add additional notes about how to deploy this on a live system.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [Hive](https://docs.hivedb.dev/) - Local Database
+- [Flutter](https://flutter.dev/) - UI Framework
+- [Dart](https://dart.dev/) - Programming Language
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [Boris Kayi](https://github.com/silverhairs) - Initial work
+- [Boris Kayi](https://github.com/silverhairs) - Development
 - [Awesomity Lab](https://github.com/Awesomity-Lab) - Idea & UI
 
+## 🥲 Weird behaviours & undone work:
 
+I joined the challenge pretty late so there are a bunch of stuff that I didn't really have time to do.
+
+- Tests: There is zero tests written (I am pretty new in writing flutter tests so I usually postpone it until It's not done)
+- Redux: I am not familiar with Redux and didn't have enough time to learn it so I used [riverpod](https://pub.dev/packages/riverpod) instead.
+- Firebase: Well I started but didn't finish once again because of the time.
+- Commenting.
+- Splash screen on iOS: I don't own a Mac so I could not implement this because I don't have access to XCode.
