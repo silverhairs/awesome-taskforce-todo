@@ -69,6 +69,7 @@ Creating, Reading, Editing and Deleting Tasks in a todo list.
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [Hive](https://docs.hivedb.dev/) - Local Database
+- [Flutter Hooks](https://pub.dev/packages/flutter_hooks) - Local State Management and Widget life-cycle 
 - [Flutter](https://flutter.dev/) - UI Framework
 - [Dart](https://dart.dev/) - Programming Language
 
