@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 part 'task.g.dart';
@@ -16,17 +15,17 @@ class Task {
   @HiveField(4)
   Priority priority;
   @HiveField(5)
-  String imageURL;
+  String? imageURL;
   @HiveField(6)
   bool isDone;
 
   Task({
-    @required this.title,
-    @required this.description,
-    @required this.createDate,
-    @required this.modifiedDate,
-    @required this.priority,
-    this.isDone = false,
+    required this.title,
+    required this.description,
+    required this.createDate,
+    required this.modifiedDate,
+    required this.priority,
+    this.isDone: false,
     this.imageURL,
   });
   Map<String, dynamic> toMap() => {

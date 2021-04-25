@@ -3,11 +3,11 @@ import 'package:todo/utils/styles.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
-    Key key,
-    @required TextEditingController searchBarController,
-    @required this.hideSearchBar,
-    @required this.onChanged,
-  })  : _searchBarController = searchBarController,
+    Key? key,
+    required TextEditingController searchBarController,
+    required this.hideSearchBar,
+    required this.onChanged,
+  })   : _searchBarController = searchBarController,
         super(key: key);
 
   final TextEditingController _searchBarController;

@@ -7,12 +7,12 @@ import 'package:todo/views/widgets/task_tile.dart';
 
 class TodoList extends StatelessWidget {
   const TodoList({
-    @required this.scrollController,
-    @required this.tasks,
-    @required this.tasksCount,
-    @required this.onCheckTask,
-    @required this.onDeleteTask,
-    Key key,
+    required this.scrollController,
+    required this.tasks,
+    required this.tasksCount,
+    required this.onCheckTask,
+    required this.onDeleteTask,
+    Key? key,
   }) : super(key: key);
   final ScrollController scrollController;
   final List<Task> tasks;
@@ -40,7 +40,7 @@ class TodoList extends StatelessWidget {
               this.onDeleteTask(task);
           },
           task: task,
-          isChecked: task.isDone ?? false,
+          isChecked: task.isDone,
           position: (index + 1),
           onCheck: (value) {
             task.isDone = value;

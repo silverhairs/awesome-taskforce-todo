@@ -3,10 +3,10 @@ import 'package:todo/utils/styles.dart';
 
 class TaskFormField extends StatelessWidget {
   const TaskFormField(
-      {Key key,
-      @required this.focusNode,
-      @required this.controller,
-      @required this.nextFieldFocusNode,
+      {Key? key,
+      required this.focusNode,
+      required this.controller,
+      required this.nextFieldFocusNode,
       this.maxLength = 140,
       this.maxLines = 1,
       this.onChanged,
@@ -19,9 +19,9 @@ class TaskFormField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode nextFieldFocusNode;
   final int maxLines, maxLength;
-  final void Function(String) onChanged;
-  final VoidCallback onEditingComplete;
-  final String hintText;
+  final void Function(String)? onChanged;
+  final VoidCallback? onEditingComplete;
+  final String? hintText;
   final EdgeInsetsGeometry contentPadding;
 
   @override
@@ -29,18 +29,15 @@ class TaskFormField extends StatelessWidget {
     return TextFormField(
       maxLength: this.maxLength,
       focusNode: focusNode,
-      onChanged: (value) => this.onChanged(value),
+      onChanged: this.onChanged,
       keyboardType: TextInputType.text,
       controller: controller,
       autocorrect: true,
       validator: (value) {
-        if (value.isEmpty) return "This field is required.";
+        if (value!.isEmpty) return "This field is required.";
         return null;
       },
-      onEditingComplete: () {
-        nextFieldFocusNode.requestFocus();
-        return this.onEditingComplete;
-      },
+      onEditingComplete: this.onEditingComplete,
       maxLines: this.maxLines,
       cursorColor: TodoColors.deepDark,
       decoration: InputDecoration(
@@ -63,9 +60,9 @@ class FieldTitle extends StatelessWidget {
   final String title;
   final double paddingTop, paddingLeft, paddingRight;
   const FieldTitle({
-    @required this.title,
+    required this.title,
     this.paddingTop = 20,
-    Key key,
+    Key? key,
     this.paddingLeft = 0,
     this.paddingRight = 0,
   }) : super(key: key);

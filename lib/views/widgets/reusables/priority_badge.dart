@@ -4,8 +4,8 @@ import 'package:todo/utils/styles.dart';
 
 class PriorityBadge extends StatelessWidget {
   const PriorityBadge({
-    Key key,
-    @required this.priority,
+    Key? key,
+    required this.priority,
   }) : super(key: key);
 
   final Priority priority;

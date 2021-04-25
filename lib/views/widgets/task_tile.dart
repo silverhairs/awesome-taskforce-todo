@@ -9,12 +9,12 @@ import 'reusables/priority_badge.dart';
 
 class TaskTile extends StatelessWidget {
   const TaskTile({
-    Key key,
-    @required this.task,
-    @required this.position,
-    @required this.isChecked,
-    @required this.onCheck,
-    @required this.onSelectedAction,
+    Key? key,
+    required this.task,
+    required this.position,
+    required this.isChecked,
+    required this.onCheck,
+    required this.onSelectedAction,
   }) : super(key: key);
 
   final Task task;
@@ -44,7 +44,7 @@ class TaskTile extends StatelessWidget {
                 Checkbox(
                   materialTapTargetSize: MaterialTapTargetSize.padded,
                   value: this.isChecked,
-                  onChanged: (value) => this.onCheck(value),
+                  onChanged: (value) => this.onCheck(value!),
                 ),
                 Expanded(
                   child: Column(
