@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,7 +12,7 @@ import 'package:todo/views/widgets/task_form_input.dart';
 class ModifyTaskScreen extends HookWidget {
   final Task task;
   final _picker = ImagePicker();
-  ModifyTaskScreen({@required this.task});
+  ModifyTaskScreen({required this.task});
   @override
   Widget build(BuildContext context) {
     final _priorityFocusNode = useFocusNode();
@@ -28,7 +26,7 @@ class ModifyTaskScreen extends HookWidget {
     );
     final _titleFocusNode = useFocusNode();
     final _descFocusNode = useFocusNode();
-    final _imageNotifier = useState<File>(File(task.imageURL));
+    final _imagePathNotifier = useState<String?>((task.imageURL ?? ''));
     final _tasksProvider = useProvider(tasksChangeNotifier);
     final _editTaskForm = useForm(
         scrollController: _scrollController,
@@ -38,14 +36,14 @@ class ModifyTaskScreen extends HookWidget {
             padding: const EdgeInsets.only(top: 8.0, bottom: 16),
             child: Text(
               "Modify task",
-              style: Theme.of(context).textTheme.headline5.copyWith(
+              style: Theme.of(context).textTheme.headline5!.copyWith(
                     color: TodoColors.deepDark,
                     fontWeight: FontWeight.bold,
                   ),
             ),
           ),
           FieldTitle(title: "Add image", paddingTop: 0),
-          ImageField(picker: _picker, imageNotifier: _imageNotifier),
+          ImageField(picker: _picker, pathNotifier: _imagePathNotifier),
           FieldTitle(title: "Title", paddingTop: 24),
           TaskFormField(
             focusNode: _titleFocusNode,
@@ -72,13 +70,13 @@ class ModifyTaskScreen extends HookWidget {
             ),
             width: double.infinity,
             child: DropdownButtonHideUnderline(
-              child: DropdownButton(
+              child: DropdownButton<Priority>(
                 focusColor: Colors.transparent,
                 isExpanded: true,
                 icon: Icon(Icons.arrow_drop_down),
                 focusNode: _priorityFocusNode,
                 value: _priorityNotifier.value,
-                onChanged: (value) => _priorityNotifier.value = value,
+                onChanged: (value) => _priorityNotifier.value = value!,
                 items: Priority.values.map((priority) {
                   String displayed;
                   if (priority == Priority.HIGH)
@@ -103,7 +101,7 @@ class ModifyTaskScreen extends HookWidget {
         onSubmit: () {
           task.title = _titleController.text;
           task.description = _descController.text;
-          task.imageURL = _imageNotifier.value.path;
+          task.imageURL = _imagePathNotifier.value!;
           task.priority = _priorityNotifier.value;
           task.modifiedDate = DateTime.now();
           _tasksProvider.updateTask(task);

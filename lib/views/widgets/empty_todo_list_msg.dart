@@ -4,7 +4,7 @@ import 'package:todo/views/screens/new_task_screen.dart';
 
 class EmptyTodoListMessage extends StatelessWidget {
   const EmptyTodoListMessage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,19 +16,29 @@ class EmptyTodoListMessage extends StatelessWidget {
         children: [
           Text(
             "NOTHING HERE",
-            style: Theme.of(context).textTheme.headline6.copyWith(
+            style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
           ),
           SizedBox(height: 12),
           Text("Just like your crush's replies"),
           SizedBox(height: 18),
-          FlatButton(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 24,
-            ),
-            color: TodoColors.deepDark,
+          TextButton(
+            style: ButtonStyle(
+                padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
+                  (states) => const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 24,
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (states) => TodoColors.deepDark),
+                shape:
+                    MaterialStateProperty.resolveWith<RoundedRectangleBorder>(
+                  (states) => RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                )),
             child: Text(
               "START WITH A NEW TASK",
               style: TextStyle(
@@ -37,12 +47,10 @@ class EmptyTodoListMessage extends StatelessWidget {
               ),
             ),
             onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NewTaskScreen(),
-                )),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
+              context,
+              MaterialPageRoute(
+                builder: (context) => NewTaskScreen(),
+              ),
             ),
           )
         ],

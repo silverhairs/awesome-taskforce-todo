@@ -3,7 +3,7 @@ import 'package:todo/utils/styles.dart';
 
 class DeleteTaskWarningDialog extends StatelessWidget {
   const DeleteTaskWarningDialog({this.onDeleteTask});
-  final Function onDeleteTask;
+  final VoidCallback? onDeleteTask;
 
   @override
   Widget build(BuildContext context) {

@@ -7,15 +7,15 @@ import 'package:todo/utils/styles.dart';
 
 class ImageField extends StatelessWidget {
   const ImageField({
-    Key key,
-    @required ImagePicker picker,
-    @required ValueNotifier<File> imageNotifier,
-  })  : _picker = picker,
-        _imageNotifier = imageNotifier,
+    Key? key,
+    required ImagePicker picker,
+    required ValueNotifier<String?> pathNotifier,
+  })   : _picker = picker,
+        _pathNotifier = pathNotifier,
         super(key: key);
 
   final ImagePicker _picker;
-  final ValueNotifier<File> _imageNotifier;
+  final ValueNotifier<String?> _pathNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +44,12 @@ class ImageField extends StatelessWidget {
                     size: 30,
                   ),
                   onPressed: () async {
-                    final image = await _picker.getImage(
+                    PickedFile? image = await _picker.getImage(
                       source: ImageSource.camera,
                     );
-                    if (image != null) _imageNotifier.value = File(image.path);
+                    if (image != null) {
+                      _pathNotifier.value = image.path;
+                    }
                   },
                 ),
               ),
@@ -66,7 +68,9 @@ class ImageField extends StatelessWidget {
                     final image = await _picker.getImage(
                       source: ImageSource.gallery,
                     );
-                    if (image != null) _imageNotifier.value = File(image.path);
+                    if (image != null) {
+                      _pathNotifier.value = image.path;
+                    }
                   },
                 ),
               )
@@ -74,7 +78,7 @@ class ImageField extends StatelessWidget {
           ),
         ),
       ),
-      child: _imageNotifier.value == null
+      child: _pathNotifier.value == null
           ? Container(
               width: double.infinity,
               height: 130,
@@ -94,7 +98,8 @@ class ImageField extends StatelessWidget {
               constraints: BoxConstraints(maxHeight: 500),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: FileImage(_imageNotifier.value), fit: BoxFit.cover),
+                    image: FileImage(File(_pathNotifier.value!)),
+                    fit: BoxFit.cover),
               ),
             ),
     );

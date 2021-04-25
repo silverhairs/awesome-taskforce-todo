@@ -4,9 +4,9 @@ import 'package:todo/utils/styles.dart';
 
 class CounterCardsGrid extends StatelessWidget {
   const CounterCardsGrid({
-    Key key,
-    @required TodoListNotifier tasksProvider,
-  })  : _tasksProvider = tasksProvider,
+    Key? key,
+    required TodoListNotifier tasksProvider,
+  })   : _tasksProvider = tasksProvider,
         super(key: key);
 
   final TodoListNotifier _tasksProvider;
@@ -32,7 +32,7 @@ class CounterCardsGrid extends StatelessWidget {
                 children: [
                   Text(
                     "${_tasksProvider.tasksCount}",
-                    style: Theme.of(context).textTheme.headline6.copyWith(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: TodoColors.lightGreen,
                           fontWeight: FontWeight.bold,
                         ),
@@ -57,7 +57,7 @@ class CounterCardsGrid extends StatelessWidget {
                 children: [
                   Text(
                     "${_tasksProvider.tasks.where((task) => !task.isDone).toList().length}",
-                    style: Theme.of(context).textTheme.headline6.copyWith(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: TodoColors.lightGreen,
                           fontWeight: FontWeight.bold,
                         ),
@@ -84,7 +84,7 @@ class CounterCardsGrid extends StatelessWidget {
                 children: [
                   Text(
                     "${_tasksProvider.tasks.where((task) => task.isDone).toList().length}",
-                    style: Theme.of(context).textTheme.headline6.copyWith(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: TodoColors.lightGreen,
                           fontWeight: FontWeight.bold,
                         ),

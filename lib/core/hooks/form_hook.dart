@@ -3,10 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todo/utils/styles.dart';
 
 Form useForm({
-  @required List<Widget> children,
-  VoidCallback onSubmit,
-  String submitButtonText,
-  ScrollController scrollController,
+  required List<Widget> children,
+  required VoidCallback onSubmit,
+  required String submitButtonText,
+  required ScrollController scrollController,
 }) {
   return use(_Form(
     children: children,
@@ -18,13 +18,13 @@ Form useForm({
 
 class _Form extends Hook<Form> {
   final List<Widget> children;
-  final VoidCallback submit;
+  final VoidCallback? submit;
   final String submitButtonText;
   final ScrollController scrollController;
 
   const _Form({
-    @required this.children,
-    @required this.scrollController,
+    required this.children,
+    required this.scrollController,
     this.submit,
     this.submitButtonText = "Submit",
   });
@@ -46,9 +46,22 @@ class __FormState extends HookState<Form, _Form> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (var field in this.hook.children) field,
-            FlatButton(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-              color: TodoColors.deepDark,
+            TextButton(
+              style: ButtonStyle(
+                  padding:
+                      MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
+                    (states) => const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 24),
+                  ),
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (states) => TodoColors.deepDark,
+                  ),
+                  shape:
+                      MaterialStateProperty.resolveWith<RoundedRectangleBorder>(
+                    (states) => RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  )),
               child: Text(
                 this.hook.submitButtonText.toUpperCase(),
                 style: TextStyle(
@@ -57,13 +70,10 @@ class __FormState extends HookState<Form, _Form> {
                 ),
               ),
               onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  return this.hook.submit();
+                if (_formKey.currentState!.validate()) {
+                  return this.hook.submit!();
                 }
               },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
             )
           ],
         ),

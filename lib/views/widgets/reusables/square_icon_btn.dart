@@ -4,15 +4,15 @@ import 'package:todo/utils/styles.dart';
 
 class SquareIconButton extends StatelessWidget {
   const SquareIconButton({
-    Key key,
-    @required this.task,
-    @required this.icon,
+    Key? key,
+    required this.task,
+    required this.icon,
     this.onPressed,
   }) : super(key: key);
 
   final Task task;
   final IconData icon;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

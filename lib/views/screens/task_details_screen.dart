@@ -15,7 +15,7 @@ import 'package:todo/views/widgets/task_form_input.dart';
 
 class TaskDetailsScreen extends HookWidget {
   final Task task;
-  const TaskDetailsScreen({@required this.task});
+  const TaskDetailsScreen({required this.task});
   @override
   Widget build(BuildContext context) {
     final _scrollController = useScrollController();
@@ -27,7 +27,7 @@ class TaskDetailsScreen extends HookWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            this.task.imageURL == null || this.task.imageURL.isEmpty
+            this.task.imageURL == null || this.task.imageURL!.isEmpty
                 ? Container(
                     margin: EdgeInsets.symmetric(vertical: 16),
                     width: double.infinity,
@@ -43,7 +43,7 @@ class TaskDetailsScreen extends HookWidget {
                     height: screenWidth(context) / 1.5,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: FileImage(File(this.task.imageURL)),
+                        image: FileImage(File(this.task.imageURL!)),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -88,8 +88,28 @@ class TaskDetailsScreen extends HookWidget {
                           icon: Icons.close,
                           task: this.task,
                         ),
-                        FlatButton(
-                          splashColor: TodoColors.darkGrey,
+                        TextButton(
+                          style: ButtonStyle(
+                            overlayColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                                    (states) => TodoColors.darkGrey),
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (states) => TodoColors.accent,
+                            ),
+                            foregroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (states) => TodoColors.darkGrey,
+                            ),
+                            shape: MaterialStateProperty.resolveWith<
+                                RoundedRectangleBorder>(
+                              (states) => RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: TodoColors.deepDark, width: 2),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
                           onPressed: () => Navigator.pop(context),
                           child: Text(
                             "DONE",
@@ -98,12 +118,6 @@ class TaskDetailsScreen extends HookWidget {
                               color: TodoColors.deepDark,
                             ),
                           ),
-                          color: TodoColors.accent,
-                          textColor: TodoColors.darkGrey,
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: TodoColors.deepDark, width: 2),
-                              borderRadius: BorderRadius.circular(4)),
                         )
                       ],
                     ),
@@ -115,7 +129,7 @@ class TaskDetailsScreen extends HookWidget {
               padding: const EdgeInsets.all(12),
               child: Text(
                 this.task.title,
-                style: Theme.of(context).textTheme.headline5.copyWith(
+                style: Theme.of(context).textTheme.headline5!.copyWith(
                     fontWeight: FontWeight.bold, color: TodoColors.primary),
               ),
             ),

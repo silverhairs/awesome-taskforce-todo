@@ -20,7 +20,7 @@ class PriorityAdapter extends TypeAdapter<Priority> {
       case 2:
         return Priority.HIGH;
       default:
-        return null;
+        return Priority.LOW;
     }
   }
 
@@ -67,7 +67,7 @@ class TaskAdapter extends TypeAdapter<Task> {
       modifiedDate: fields[3] as DateTime,
       priority: fields[4] as Priority,
       isDone: fields[6] as bool,
-      imageURL: fields[5] as String,
+      imageURL: fields[5] as String?,
     );
   }
 

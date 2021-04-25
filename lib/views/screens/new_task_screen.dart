@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -26,7 +24,7 @@ class NewTaskScreen extends HookWidget {
     final _descFieldController = useTextEditingController.fromValue(
       TextEditingValue.empty,
     );
-    final _imageNotifier = useState<File>();
+    final _imagePathNotifier = useState<String?>(null);
     final _tasksProvider = useProvider(tasksChangeNotifier);
     final _form = useForm(
       scrollController: _scrollController,
@@ -36,14 +34,14 @@ class NewTaskScreen extends HookWidget {
           padding: const EdgeInsets.only(top: 8.0, bottom: 16),
           child: Text(
             "New task",
-            style: Theme.of(context).textTheme.headline5.copyWith(
+            style: Theme.of(context).textTheme.headline5!.copyWith(
                   color: TodoColors.deepDark,
                   fontWeight: FontWeight.bold,
                 ),
           ),
         ),
         FieldTitle(title: "Add image", paddingTop: 0),
-        ImageField(picker: _picker, imageNotifier: _imageNotifier),
+        ImageField(picker: _picker, pathNotifier: _imagePathNotifier),
         FieldTitle(title: "Title", paddingTop: 24),
         TaskFormField(
           focusNode: _titleFocusNode,
@@ -51,6 +49,8 @@ class NewTaskScreen extends HookWidget {
           nextFieldFocusNode: _descFocusNode,
           hintText: "Task title (140 characters)",
           maxLength: 140,
+          onEditingComplete: () =>
+              FocusScope.of(context).requestFocus(_descFocusNode),
         ),
         FieldTitle(title: "Description"),
         TaskFormField(
@@ -70,13 +70,13 @@ class NewTaskScreen extends HookWidget {
           ),
           width: double.infinity,
           child: DropdownButtonHideUnderline(
-            child: DropdownButton(
+            child: DropdownButton<Priority>(
               focusColor: Colors.transparent,
               isExpanded: true,
               icon: Icon(Icons.arrow_drop_down),
               focusNode: _priorityFocusNode,
               value: _priorityNotifier.value,
-              onChanged: (value) => _priorityNotifier.value = value,
+              onChanged: (value) => _priorityNotifier.value = value!,
               items: Priority.values.map((priority) {
                 String displayed;
                 if (priority == Priority.HIGH)
@@ -104,7 +104,7 @@ class NewTaskScreen extends HookWidget {
             title: _titleFieldController.text,
             description: _descFieldController.text,
             priority: _priorityNotifier.value,
-            imageURL: _imageNotifier.value.path,
+            imageURL: _imagePathNotifier.value,
             createDate: DateTime.now(),
             modifiedDate: DateTime.now(),
           ),
